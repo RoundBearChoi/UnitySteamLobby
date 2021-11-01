@@ -1,0 +1,48 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace RB
+{
+    public class ServerLobbyStage : BaseStage
+    {
+        public override void OnEnter()
+        {
+            InitGameElements();
+            InitStandardCanvas();
+        }
+
+        public override void InitGameElements()
+        {
+            List<GameElements.GameElementType> gameElements = new List<GameElements.GameElementType>();
+
+            InstantiateGameElements(gameElements);
+        }
+
+        public override void InitStandardCanvas()
+        {
+            List<UI.UIElementType> uiElements = new List<UI.UIElementType>();
+
+            uiElements.Add(UI.UIElementType.PLAYERS_LIST);
+            uiElements.Add(UI.UIElementType.CHAT_BOX);
+            uiElements.Add(UI.UIElementType.CHAT_INPUT);
+
+            InstantiateStandardCanvas(UI.UIMenuType.UIMENU_SERVER_LOBBY, uiElements);
+        }
+
+        public override void OnFixedUpdate()
+        {
+            _standardCanvas.OnFixedUpdate();
+        }
+
+        public override void OnUpdate()
+        {
+            _standardCanvas.OnUpdate();
+        }
+
+        public override void OnLateUpdate()
+        {
+            _standardCanvas.OnLateUpdate();
+        }
+    }
+}

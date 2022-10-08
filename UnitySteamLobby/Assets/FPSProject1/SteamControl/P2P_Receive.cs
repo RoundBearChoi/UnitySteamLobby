@@ -27,14 +27,11 @@ namespace RB.SteamIntegration
             {
                 while (SteamNetworking.IsP2PPacketAvailable())
                 {
-                    //SteamDebug.Log("found available packet.. attempting to read..");
-
                     var p2packet = SteamNetworking.ReadP2PPacket();
 
                     if (p2packet.HasValue)
                     {
-                        //SteamDebug.Log("packet has value");
-                        OnReceive(p2packet.Value);
+                        _OnReceive(p2packet.Value);
                     }
                     else
                     {
@@ -44,12 +41,11 @@ namespace RB.SteamIntegration
             }
         }
 
-        void OnReceive(P2Packet p2packet)
+        void _OnReceive(P2Packet p2packet)
         {
             try
             {
-                /*BytePacket p =*/ ReadData(p2packet);
-                //p.Dispose();
+                _ReadData(p2packet);
             }
             catch(System.Exception e)
             {
@@ -57,12 +53,12 @@ namespace RB.SteamIntegration
             }
         }
 
-        void ReadData(P2Packet p2packet)
+        void _ReadData(P2Packet p2pPacket)
         {
             int packetLength = 0;
 
             BytePacket bytePacket = new BytePacket();
-            bytePacket.SetBytes(p2packet.Data);
+            bytePacket.SetBytes(p2pPacket.Data);
 
             if (bytePacket.UnreadLength() >= 4)
             {
@@ -75,7 +71,6 @@ namespace RB.SteamIntegration
 
                     bytePacket.Dispose();
                     return;
-                    //return bytePacket;
                 }
             }
 
@@ -86,7 +81,7 @@ namespace RB.SteamIntegration
 
                 using (BytePacket p = new BytePacket(bytes))
                 {
-                    _p2pReceiveHandle.Handle(p2packet.SteamId, p, ref _latestPacketReceived);
+                    _p2pReceiveHandle.Handle(p2pPacket.SteamId, p, ref _latestPacketReceived);
                     p.Dispose();
                 }
 
@@ -100,7 +95,6 @@ namespace RB.SteamIntegration
                     {
                         bytePacket.Dispose();
                         return;
-                        //return bytePacket;
                     }
                 }
             }
@@ -109,7 +103,6 @@ namespace RB.SteamIntegration
             {
                 bytePacket.Dispose();
                 return;
-                //return bytePacket;
             }
         }
     }

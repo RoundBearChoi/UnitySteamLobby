@@ -39,7 +39,7 @@ namespace RB.SteamIntegration
             if (SteamClient.IsValid)
             {
                 SteamDebug.Log("SteamClient already initialized");
-                SetSteamAccountInfo();
+                _SetLocalSteamAccountInfo();
 
                 return true;
             }
@@ -49,7 +49,7 @@ namespace RB.SteamIntegration
                 {
                     SteamClient.Init(480, false);
                     SteamDebug.Log("SteamClient initialized successfully!");
-                    SetSteamAccountInfo();
+                    _SetLocalSteamAccountInfo();
 
                     return true;
                 }
@@ -75,7 +75,7 @@ namespace RB.SteamIntegration
             SteamNetworking.OnP2PSessionRequest += LobbyCallbacks.RequestingP2PSession;
         }
 
-        public void SetSteamAccountInfo()
+        void _SetLocalSteamAccountInfo()
         {
             if (SteamClient.IsValid)
             {

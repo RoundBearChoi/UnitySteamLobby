@@ -12,7 +12,6 @@ namespace RB.SteamIntegration
         public SteamId STEAM_ID { get; }
         public string STEAM_NAME { get; }
         public bool InitSteamClient(IGameInitializer initializer);
-        public void SetSteamAccountInfo();
         public void CreateSteamLobby();
         public void SetLobbyInfo(Lobby lobby);
         public bool IsLobbyHost(SteamId steamID);

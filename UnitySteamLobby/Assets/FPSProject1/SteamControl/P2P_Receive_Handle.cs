@@ -189,6 +189,8 @@ namespace RB.SteamIntegration
             {
                 SteamDebug.Log("undefined packet type: " + packetType);
             }
+
+            bytePacket.Dispose();
         }
     }
 }

@@ -48,8 +48,8 @@ namespace RB.SteamIntegration
         {
             try
             {
-                BytePacket p = ReadData(p2packet);
-                p.Dispose();
+                /*BytePacket p =*/ ReadData(p2packet);
+                //p.Dispose();
             }
             catch(System.Exception e)
             {
@@ -57,7 +57,7 @@ namespace RB.SteamIntegration
             }
         }
 
-        BytePacket ReadData(P2Packet p2packet)
+        void ReadData(P2Packet p2packet)
         {
             int packetLength = 0;
 
@@ -72,7 +72,10 @@ namespace RB.SteamIntegration
                 if (packetLength <= 0)
                 {
                     SteamDebug.Log("packet length is 0");
-                    return bytePacket;
+
+                    bytePacket.Dispose();
+                    return;
+                    //return bytePacket;
                 }
             }
 
@@ -95,17 +98,19 @@ namespace RB.SteamIntegration
 
                     if (packetLength <= 0)
                     {
-                        return bytePacket;
+                        bytePacket.Dispose();
+                        return;
+                        //return bytePacket;
                     }
                 }
             }
 
             if (packetLength <= 1)
             {
-                return bytePacket;
+                bytePacket.Dispose();
+                return;
+                //return bytePacket;
             }
-
-            return bytePacket;
         }
     }
 }
